@@ -1,4 +1,4 @@
-import { Button, StyleSheet, TextInput } from "react-native";
+import { Button, StyleSheet } from "react-native";
 
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
@@ -9,20 +9,19 @@ export default function TabOneScreen({
 }: RootTabScreenProps<"TabOne">) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Log in</Text>
-      <Text style={styles.text}>User name</Text>
-      <TextInput
-        style={{ height: 40 }}
-        placeholder="Type here to translate!"
-        // onChangeText={newText => setText(newText)}
-        // defaultValue={text}
+      <Text style={styles.title}>Tab One</Text>
+      <View
+        style={styles.separator}
+        lightColor="#eee"
+        darkColor="rgba(255,255,255,0.1)"
       />
       <Button
-        onPress={() => console.log("onPress clicked!")}
-        title="Log in"
+        onPress={() => navigation.navigate("Login")}
+        title="Go back to login page"
         color="#FFB323"
-        accessibilityLabel="Log in with one click"
+        accessibilityLabel="Go back to login page"
       />
+      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
     </View>
   );
 }
