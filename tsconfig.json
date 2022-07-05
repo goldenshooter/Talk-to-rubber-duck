@@ -1,6 +1,12 @@
 {
-  "extends": "node_modules/expo/tsconfig.base.json",
   "compilerOptions": {
-    "strict": false
-  }
+    "strict": false,
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es6",
+    "jsx": "react-jsx"
+  },
+  "extends": "expo/tsconfig.base"
 }

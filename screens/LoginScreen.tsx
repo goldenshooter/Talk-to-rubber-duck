@@ -6,6 +6,8 @@ import {
   isEnrolledAsync,
   authenticateAsync,
 } from "expo-local-authentication";
+import * as Google from "expo-auth-session/providers/google";
+import { useEffect } from "react";
 
 export default function LoginScreen({
   navigation,
@@ -30,38 +32,28 @@ export default function LoginScreen({
     if (!result.success) {
       console.error(result);
     }
-    console.log('log in through biometric success!')
-    navigation.navigate("Root")
+    console.log("log in through biometric success!");
+    navigation.navigate("Root");
   };
 
-  // const createCredential = async () => {
-  //   const mockRandomStringFromServer = uuidv4();
-  //   const publicKeyCredentialCreationOptions: any = {
-  //     challenge: Uint8Array.from(mockRandomStringFromServer, (c: any) =>
-  //       c.charCodeAt(0)
-  //     ),
-  //     rp: {
-  //       name: "Talk to rubber duck",
-  //       id: "localhost",
-  //     },
-  //     user: {
-  //       id: Uint8Array.from("UZSL85T9AFC", (c) => c.charCodeAt(0)),
-  //       name: "steven@gmail.com",
-  //       displayName: "Steven",
-  //     },
-  //     pubKeyCredParams: [{ alg: -7, type: "public-key" }],
-  //     authenticatorSelection: {
-  //       authenticatorAttachment: "platform",
-  //       userVerification: "discouraged",
-  //     },
-  //     timeout: 60000,
-  //     attestation: "direct",
-  //   };
-  //   const credential = await navigator.credentials.create({
-  //     publicKey: publicKeyCredentialCreationOptions,
-  //   });
-  //   console.log(credential);
-  // };
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    expoClientId:
+      "910635067268-1j5ruf2a32l9841117pmbc8djttpftjr.apps.googleusercontent.com",
+    iosClientId:
+      "910635067268-d0uc7vgqa0ekojhrupka2nsgm7etkv94.apps.googleusercontent.com",
+    androidClientId:
+      "910635067268-8o1knalfsh4cavffa8v4g4o7c9a6rgf9.apps.googleusercontent.com",
+    webClientId:
+      "910635067268-1j5ruf2a32l9841117pmbc8djttpftjr.apps.googleusercontent.com",
+  });
+
+  useEffect(() => {
+    if (response?.type === "success") {
+      const { authentication } = response;
+      console.log(authenticateAsync);
+      navigation.navigate("Root");
+    }
+  }, [response]);
 
   return (
     <View style={styles.container}>
@@ -70,8 +62,6 @@ export default function LoginScreen({
       <TextInput
         style={{ height: 40 }}
         placeholder="What's your user name?"
-        // onChangeText={newText => setText(newText)}
-        // defaultValue={text}
       />
       <Button
         onPress={() => navigation.navigate("Root")}
@@ -79,6 +69,16 @@ export default function LoginScreen({
         color="#FFB323"
         accessibilityLabel="Log in with one click"
       />
+
+      <Button
+        onPress={() => {
+          promptAsync();
+        }}
+        title="Goolge login"
+        color="green"
+        accessibilityLabel="Goolge login"
+      />
+
       <Button
         onPress={biometricsAuth}
         title="Authenticate"

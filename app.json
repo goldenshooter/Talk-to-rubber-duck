@@ -1,11 +1,12 @@
 {
   "expo": {
     "name": "Hello World",
-    "slug": "AwesomeProject",
+    "owner": "chaopapa",
+    "slug": "talk-to-rubber-duck",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "mycoolredirect",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -19,6 +20,7 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "910635067268-d0uc7vgqa0ekojhrupka2nsgm7etkv94.apps.googleusercontent.com",
       "supportsTablet": true
     },
     "android": {
