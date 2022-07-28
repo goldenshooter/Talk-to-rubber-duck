@@ -59,10 +59,7 @@ export default function LoginScreen({
     <View style={styles.container}>
       <Text style={styles.title}>Log in</Text>
       <Text style={styles.text}>User name</Text>
-      <TextInput
-        style={{ height: 40 }}
-        placeholder="What's your user name?"
-      />
+      <TextInput style={{ height: 40 }} placeholder="What's your user name?" />
       <Button
         onPress={() => navigation.navigate("Root")}
         title="Log in"
@@ -75,7 +72,7 @@ export default function LoginScreen({
           promptAsync();
         }}
         title="Goolge login"
-        color="green"
+        color="#4285f4"
         accessibilityLabel="Goolge login"
       />
 
