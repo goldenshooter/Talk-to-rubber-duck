@@ -8,11 +8,15 @@ import {
 } from "expo-local-authentication";
 import * as Google from "expo-auth-session/providers/google";
 import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { decrement, increment } from "./features/counter/counterSlice";
+import type { RootState } from "../store";
 
 export default function LoginScreen({
   navigation,
 }: RootStackScreenProps<"Login">) {
-  console.log(window?.location?.hostname);
+  const count = useSelector((state: RootState) => state.counter.value);
+  const dispatch = useDispatch();
 
   const biometricsAuth = async () => {
     const compatible = await hasHardwareAsync();
@@ -66,7 +70,6 @@ export default function LoginScreen({
         color="#FFB323"
         accessibilityLabel="Log in with one click"
       />
-
       <Button
         onPress={() => {
           promptAsync();
@@ -75,13 +78,17 @@ export default function LoginScreen({
         color="#4285f4"
         accessibilityLabel="Goolge login"
       />
-
       <Button
         onPress={biometricsAuth}
         title="Authenticate"
         color="purple"
         accessibilityLabel="authenticate"
       />
+      <Text>Count:</Text>
+      <Text>{count}</Text>
+
+      <Button onPress={() => dispatch(increment())} title="add" />
+      <Button onPress={() => dispatch(decrement())} title="minus" />
     </View>
   );
 }
