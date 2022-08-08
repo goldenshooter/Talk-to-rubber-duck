@@ -1,4 +1,4 @@
-import { Button, StyleSheet, TextInput } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 import { Text, View } from "../components/Themed";
 import { RootStackScreenProps } from "../types";
 import {
@@ -61,56 +61,80 @@ export default function LoginScreen({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Log in</Text>
-      <Text style={styles.text}>User name</Text>
-      <TextInput style={{ height: 40 }} placeholder="What's your user name?" />
-      <Button
-        onPress={() => navigation.navigate("Root")}
-        title="Log in"
-        color="#FFB323"
-        accessibilityLabel="Log in with one click"
-      />
-      <Button
-        onPress={() => {
-          promptAsync();
-        }}
-        title="Goolge login"
-        color="#4285f4"
-        accessibilityLabel="Goolge login"
-      />
-      <Button
-        onPress={biometricsAuth}
-        title="Authenticate"
-        color="purple"
-        accessibilityLabel="authenticate"
-      />
-      <Text>Count:</Text>
-      <Text>{count}</Text>
-
-      <Button onPress={() => dispatch(increment())} title="add" />
-      <Button onPress={() => dispatch(decrement())} title="minus" />
+      <Pressable style={styles.loginButtonGoogle}>
+        <Text style={styles.googleBlue}>G</Text>
+        <Text style={styles.googleRed}>o</Text>
+        <Text style={styles.googleYellow}>o</Text>
+        <Text style={styles.googleBlue}>g</Text>
+        <Text style={styles.googleBlue}>l</Text>
+        <Text style={styles.googleRed}>e</Text>
+      </Pressable>
+      <Pressable style={styles.loginButtonFacebook}>
+        <Text>Facebook</Text>
+      </Pressable>
+      <Pressable style={styles.loginButtonWechat}>
+        <Text>WeChat</Text>
+      </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
     justifyContent: "center",
-    backgroundColor: "lightblue",
+    alignItems: "center",
+    backgroundColor: "#FFD45C",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
+  loginButtonGoogle: {
+    backgroundColor: "#E5E5E5",
+    height: "48px",
+    width: "327px",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+    borderRadius: 48,
   },
-  text: {
-    fontSize: 12,
-    fontWeight: "bold",
+  googleBlue: {
+    color: "#4285F4",
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+  googleRed: {
+    color: "#DB4437",
+  },
+  googleYellow: {
+    color: "#F4B400",
+  },
+  googleGreen: {
+    color: "#0F9D58",
+  },
+  loginButtonFacebook: {
+    height: "48px",
+    width: "327px",
+    marginTop: "3em",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#4267B2",
+    background: "#4267B2",
+    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+    borderRadius: 48,
+  },
+  loginButtonWechat: {
+    height: "48px",
+    width: "327px",
+    marginTop: "3em",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#09B83E",
+    background: "#4267B2",
+    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+    borderRadius: 48,
   },
 });
