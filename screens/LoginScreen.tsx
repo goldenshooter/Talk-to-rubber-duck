@@ -11,12 +11,25 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { decrement, increment } from "./features/counter/counterSlice";
 import type { RootState } from "../store";
+import * as Facebook from "expo-auth-session/providers/facebook";
+import { ResponseType } from "expo-auth-session";
+import * as WebBrowser from "expo-web-browser";
+
+WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen({
   navigation,
 }: RootStackScreenProps<"Login">) {
   const count = useSelector((state: RootState) => state.counter.value);
   const dispatch = useDispatch();
+
+  const [requestFacebook, responseFacebook, promptAsyncFacebook] =
+    Facebook.useAuthRequest({
+      clientId: "597967931706946",
+      expoClientId: "597967931706946",
+      webClientId: "597967931706946",
+      responseType: ResponseType.Code,
+    });
 
   const biometricsAuth = async () => {
     const compatible = await hasHardwareAsync();
@@ -40,7 +53,7 @@ export default function LoginScreen({
     navigation.navigate("Root");
   };
 
-  const [request, response, promptAsync] = Google.useAuthRequest({
+  const [request, response, promptAsyncGoogle] = Google.useAuthRequest({
     expoClientId:
       "910635067268-1j5ruf2a32l9841117pmbc8djttpftjr.apps.googleusercontent.com",
     iosClientId:
@@ -59,6 +72,14 @@ export default function LoginScreen({
     }
   }, [response]);
 
+  useEffect(() => {
+    console.log(responseFacebook);
+    if (responseFacebook?.type === "success") {
+      const { code } = responseFacebook.params;
+      console.log({ facebook_login_code: code });
+    }
+  }, [responseFacebook]);
+
   return (
     <View style={styles.container}>
       <Pressable style={styles.loginButtonGoogle}>
@@ -69,7 +90,10 @@ export default function LoginScreen({
         <Text style={styles.googleBlue}>l</Text>
         <Text style={styles.googleRed}>e</Text>
       </Pressable>
-      <Pressable style={styles.loginButtonFacebook}>
+      <Pressable
+        style={styles.loginButtonFacebook}
+        onPress={() => promptAsyncFacebook()}
+      >
         <Text>Facebook</Text>
       </Pressable>
       <Pressable style={styles.loginButtonWechat}>
